@@ -15,9 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -30,6 +27,14 @@ public class ArticleService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
         Page<Article> articlePage = articleRepository.findAll(pageable);
+
+        return articlePage.map(this::mapToResponse);
+    }
+
+    public Page<ArticleResponse> getMyArticles(String authorId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        Page<Article> articlePage = articleRepository.findByAuthorId(authorId, pageable);
 
         return articlePage.map(this::mapToResponse);
     }

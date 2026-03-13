@@ -26,6 +26,17 @@ public class ArticleController {
         return ResponseEntity.ok(articleService.getAllArticles(page, size));
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<Page<ArticleResponse>> getMyArticles(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @AuthenticationPrincipal Jwt jwt) {
+
+        String authorId = jwt.getSubject(); // Extract the User ID from the Token
+
+        return ResponseEntity.ok(articleService.getMyArticles(authorId, page, size));
+    }
+
     @PostMapping
     public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleRequest request, @AuthenticationPrincipal Jwt jwt) {
         String authorId = jwt.getSubject();
