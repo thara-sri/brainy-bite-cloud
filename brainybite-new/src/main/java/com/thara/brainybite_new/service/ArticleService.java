@@ -22,12 +22,16 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final CategoryRepository categoryRepository;
 
-    public Page<ArticleResponse> getAllArticles(int page, int size) {
+    public Page<ArticleResponse> getAllArticles(Integer categoryId ,int page, int size) {
         // Create page breaks and instruct the articles to be sorted from newest to oldest. (fetch from createdAt with Descending)
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Article> articlePage;
 
-        Page<Article> articlePage = articleRepository.findAll(pageable);
-
+        if (categoryId != null) {
+            articlePage = articleRepository.findByCategoryId(categoryId, pageable);
+        } else {
+            articlePage = articleRepository.findAll(pageable);
+        }
         return articlePage.map(this::mapToResponse);
     }
 

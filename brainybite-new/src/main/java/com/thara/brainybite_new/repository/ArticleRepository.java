@@ -13,4 +13,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Optional<Article> findBySlug(String slug);
     boolean existsBySlug(String slug);
     Page<Article> findByAuthorId(String authorId, Pageable pageable);
+    Page<Article> findByCategoryId(Integer categoryId, Pageable pageable);
 }

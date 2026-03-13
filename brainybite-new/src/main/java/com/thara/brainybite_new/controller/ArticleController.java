@@ -18,12 +18,15 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
+    // http://localhost:8080/api/articles
+    // http://localhost:8080/api/articles?category=1
     @GetMapping
     public ResponseEntity<Page<ArticleResponse>> getAllArticles(
+            @RequestParam(required = false) Integer category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(articleService.getAllArticles(page, size));
+        return ResponseEntity.ok(articleService.getAllArticles(category ,page, size));
     }
 
     @GetMapping("/me")
