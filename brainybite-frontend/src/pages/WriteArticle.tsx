@@ -1,10 +1,21 @@
+import { useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import EditorToolbar from '../components/EditorToolbar'
+import Image from '@tiptap/extension-image'
+import api from '../api/axiosSetup'
 
 export default function WriteArticle() {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+        StarterKit,
+        Image.configure({
+            allowBase64: true,
+            HTMLAttributes: {
+                class: 'rounded-xl shadow-lg border border-slate-200 my-8 mx-auto block max-w-full',
+            },
+        }),
+    ],
     content: '',
     editorProps: {
       attributes: {
@@ -14,12 +25,45 @@ export default function WriteArticle() {
     },
   })
 
+  const addImage = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = async () => {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+          // Endpoint S3 in Spring Boot
+          const response = await api.post('/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          });
+
+          // URL from S3
+          const url = response.data.url;
+
+          // Instruct Tiptap to insert an image at the cursor's location.
+          editor?.chain().focus().setImage({ src: url }).run();
+
+        } catch (error) {
+          console.error("Image upload failed:", error);
+          alert("Image upload failed. Please try again.");
+        }
+      }
+    };
+
+    input.click();
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
       <h1 className="text-3xl font-extrabold text-slate-900 mb-8">สร้างสรรค์บทความใหม่</h1>
       
       {/* Toolbar, ditor instance */}
-      <EditorToolbar editor={editor} />
+      <EditorToolbar editor={editor} onImageClick={addImage} />
       
       <EditorContent editor={editor} />
 

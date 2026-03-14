@@ -3,12 +3,14 @@ import {
   Bold, Italic, List, ListOrdered, 
   Heading1, Heading2, Quote, Undo, Redo 
 } from 'lucide-react'
+import { Image as ImageIcon} from 'lucide-react'
 
 interface Props {
   editor: Editor | null
+  onImageClick: () => void
 }
 
-export default function EditorToolbar({ editor }: Props) {
+export default function EditorToolbar({ editor, onImageClick }: Props) {
   if (!editor) return null
 
   // This function helps create visually appealing buttons and changes their color when the button is active. (Active)
@@ -40,6 +42,13 @@ export default function EditorToolbar({ editor }: Props) {
       </ActionButton>
 
       <div className="w-[1px] h-8 bg-slate-300 mx-1" />
+
+      <button 
+        onClick={onImageClick}
+        className="p-2 text-slate-600 hover:bg-slate-200 rounded-lg"
+      >
+        <ImageIcon size={20} />
+      </button>
 
       <ActionButton 
         onClick={() => editor.chain().focus().toggleBold().run()}
