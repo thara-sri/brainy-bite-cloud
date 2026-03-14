@@ -16,7 +16,7 @@ export interface PageableResponse<T> {
   totalElements: number;
 }
 
-export const fetchArticles = async (page = 0, size = 10, search = '') => {
+export const fetchArticles = async (page = 0, size = 10, search = '', p0: number | undefined) => {
   const response = await api.get<PageableResponse<ArticleResponse>>('/articles', {
     params: { page, size, search }
   });
