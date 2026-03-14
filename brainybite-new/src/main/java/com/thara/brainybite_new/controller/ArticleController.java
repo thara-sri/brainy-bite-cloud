@@ -23,10 +23,11 @@ public class ArticleController {
     @GetMapping
     public ResponseEntity<Page<ArticleResponse>> getAllArticles(
             @RequestParam(required = false) Integer category,
+            @RequestParam(required = false) String search, // Add Search
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(articleService.getAllArticles(category ,page, size));
+        return ResponseEntity.ok(articleService.getAllArticles(category, search, page, size));
     }
 
     @GetMapping("/me")
