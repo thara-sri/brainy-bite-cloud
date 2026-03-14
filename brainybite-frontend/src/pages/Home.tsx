@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
 import { fetchArticles, type ArticleResponse } from '../api/articleService';
+import { useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function Home() {
   const [articles, setArticles] = useState<ArticleResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [searchParams] = useSearchParams();
+  const searchKeyword = searchParams.get('search') || '';
+  const categoryId = searchParams.get('category') || '';
+
   useEffect(() => {
     // for call API
     const loadArticles = async () => {
       try {
         // testing
-        const data = await fetchArticles(0, 5); 
+        const data = await fetchArticles(0, 10, searchKeyword, categoryId ? Number(categoryId) : undefined);
         setArticles(data.content); // fetch only the array of articles.
       } catch (error) {
         console.error("An error occurred while retrieving the data:", error);
@@ -21,7 +26,7 @@ function Home() {
     };
 
     loadArticles();
-  }, []);
+  }, [searchKeyword, categoryId]);
 
   return (
     <div className="p-8">

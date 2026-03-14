@@ -1,6 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [category, setCategory] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault(); 
+        navigate(`/?search=${searchTerm}&category=${category}`);
+  };
+
   return (
     // sticky top-0 z-50
     // backdrop-blur-md
@@ -16,11 +26,15 @@ export default function Navbar() {
           </div>
 
           {/* Search */}
-          <div className="hidden md:flex flex-1 items-center justify-center px-8">
+          <form onSubmit={handleSearch} className="hidden md:flex flex-1 items-center justify-center px-8">
             <div className="flex w-full max-w-lg items-center bg-slate-100 rounded-full border border-slate-200 px-4 py-1.5 focus-within:ring-2 focus-within:ring-blue-500 focus-within:bg-white transition-all shadow-inner">
               
               {/* Dropdown */}
-              <select className="bg-transparent text-sm font-medium text-slate-600 focus:outline-none pr-2 py-1 border-r border-slate-300 cursor-pointer">
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="bg-transparent text-sm font-medium text-slate-600 focus:outline-none pr-2 py-1 border-r border-slate-300 cursor-pointer"
+                >
                 <option value="">ทุกหมวดหมู่</option>
                 <option value="1">Spring Boot</option>
                 <option value="2">React</option>
@@ -31,6 +45,7 @@ export default function Navbar() {
               <input
                 type="text"
                 placeholder="ค้นหาบทความ..."
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="flex-1 bg-transparent px-4 py-1 text-sm text-slate-700 focus:outline-none placeholder-slate-400"
               />
               
@@ -39,7 +54,7 @@ export default function Navbar() {
                 🔍
               </button>
             </div>
-          </div>
+          </form>
 
           {/* Login / Register */}
           <div className="flex items-center space-x-4">
