@@ -1,8 +1,8 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import ArticleDetail from './pages/ArticleDetail';
-import Navbar from './components/Navbar'; // Import Navbar
-import WriteArticle from './pages/WriteArticle';
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import ArticleDetail from "./pages/ArticleDetail";
+import Navbar from "./components/Navbar"; // Import Navbar
+import WriteArticle from "./pages/WriteArticle";
 
 function App() {
   return (
@@ -13,11 +13,24 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/article/:slug" element={<ArticleDetail />} />
           <Route path="/write" element={<WriteArticle />} />
-          <Route path="/login" element={<div className="p-8 text-center text-xl">หน้า Login กำลังสร้าง... </div>} />
-          <Route path="/register" element={<div className="p-8 text-center text-xl">หน้า Register กำลังสร้าง... </div>} />
+          <Route
+            path="/login"
+            element={
+              <div className="p-8 text-center text-xl">
+                หน้า Login กำลังสร้าง...{" "}
+              </div>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <div className="p-8 text-center text-xl">
+                หน้า Register กำลังสร้าง...{" "}
+              </div>
+            }
+          />
         </Routes>
       </main>
-      
     </div>
   );
 }

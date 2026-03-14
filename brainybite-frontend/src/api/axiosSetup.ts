@@ -1,15 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api', // Spring Boot
+  baseURL: "http://localhost:8080/api", // Spring Boot
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 // Interceptor
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token'); // if Token in localStorage
+  const token = localStorage.getItem("token"); // if Token in localStorage
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

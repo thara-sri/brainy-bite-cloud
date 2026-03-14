@@ -1,4 +1,4 @@
-import api from './axiosSetup';
+import api from "./axiosSetup";
 
 // Create an interface to handle the data sent from Spring Boot. (Pageable)
 export interface ArticleResponse {
@@ -16,10 +16,18 @@ export interface PageableResponse<T> {
   totalElements: number;
 }
 
-export const fetchArticles = async (page = 0, size = 10, search = '', p0: number | undefined) => {
-  const response = await api.get<PageableResponse<ArticleResponse>>('/articles', {
-    params: { page, size, search }
-  });
+export const fetchArticles = async (
+  page = 0,
+  size = 10,
+  search = "",
+  p0: number | undefined,
+) => {
+  const response = await api.get<PageableResponse<ArticleResponse>>(
+    "/articles",
+    {
+      params: { page, size, search },
+    },
+  );
   return response.data;
 };
 

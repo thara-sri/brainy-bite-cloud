@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/articles")
 @RequiredArgsConstructor
 public class ArticleController {
-
     private final ArticleService articleService;
 
     // http://localhost:8080/api/articles
@@ -43,9 +42,10 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleRequest request, @AuthenticationPrincipal Jwt jwt) {
-        String authorId = jwt.getSubject();
-        ArticleResponse createdArticle = articleService.createArticle(request, authorId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdArticle);
+            //String authorId = jwt.getSubject();
+            String authorId = "mock-author-uuid-1234";
+            ArticleResponse createdArticle = articleService.createArticle(request, authorId);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdArticle);
     }
 
     @GetMapping("/{slug}")
