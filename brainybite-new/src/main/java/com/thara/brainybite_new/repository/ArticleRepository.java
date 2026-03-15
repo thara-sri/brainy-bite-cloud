@@ -1,6 +1,7 @@
 package com.thara.brainybite_new.repository;
 
 import com.thara.brainybite_new.entity.Article;
+import com.thara.brainybite_new.entity.ArticleStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,8 +16,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Optional<Article> findBySlug(String slug);
     boolean existsBySlug(String slug);
     Page<Article> findByAuthorId(String authorId, Pageable pageable);
-    //Page<Article> findByCategoryId(Integer categoryId, Pageable pageable);
-
+    Page<Article> findByStatus(ArticleStatus status, Pageable pageable);
+    Page<Article> findByTopicContainingIgnoreCaseAndStatus(String topic, ArticleStatus status, Pageable pageable);
     @Query("SELECT a FROM Article a WHERE " +
             "(:categoryId IS NULL OR a.category.id = :categoryId) AND " +
             "(:keyword = '' OR LOWER(a.topic) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(a.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")

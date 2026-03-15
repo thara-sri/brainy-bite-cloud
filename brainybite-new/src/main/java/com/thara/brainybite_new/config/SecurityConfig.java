@@ -25,6 +25,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/articles/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/upload", "/api/articles").permitAll() //For Develpping
                         .requestMatchers(HttpMethod.PUT, "/api/articles/**").permitAll() //For Developpiing
+                        .requestMatchers(HttpMethod.DELETE, "/api/articles/**").permitAll() //For Developping
 
                         .anyRequest().authenticated()
                 )

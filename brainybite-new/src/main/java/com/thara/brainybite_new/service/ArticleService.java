@@ -27,7 +27,14 @@ public class ArticleService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         String searchKeyword = (keyword == null) ? "" : keyword;
 
-        Page<Article> articlePage = articleRepository.searchArticles(categoryId, searchKeyword, pageable);
+        Page<Article> articlePage;
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            // If a search is performed, find both the Topic and Status that are PUBLISHED.
+            articlePage = articleRepository.findByTopicContainingIgnoreCaseAndStatus(searchKeyword, ArticleStatus.PUBLISHED, pageable);
+        } else {
+            // If there is no search, retrieve all published entries.
+            articlePage = articleRepository.findByStatus(ArticleStatus.PUBLISHED, pageable);
+        }
 
         return articlePage.map(this::mapToResponse);
     }

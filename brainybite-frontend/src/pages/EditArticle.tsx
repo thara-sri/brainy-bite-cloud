@@ -135,6 +135,24 @@ export default function WriteArticle() {
     }
   };
 
+  const handleDelete = async () => {
+    //window.confirm for sure popup
+    const isConfirm = window.confirm(
+      "คุณแน่ใจหรือไม่ว่าต้องการลบบทความนี้? (ข้อมูลที่ลบไปแล้วจะไม่สามารถกู้คืนได้)",
+    );
+
+    if (!isConfirm) return; // if cencel
+
+    try {
+      await api.delete(`/articles/${articleId}`);
+      alert("ลบบทความเรียบร้อยแล้ว");
+      navigate("/"); // return to Home
+    } catch (error) {
+      console.error("Delete failed:", error);
+      alert("เกิดข้อผิดพลาดในการลบบทความ");
+    }
+  };
+
   if (isLoading)
     return <div className="text-center py-20">กำลังโหลดข้อมูลบทความ...</div>;
 
@@ -218,6 +236,12 @@ export default function WriteArticle() {
       <EditorContent editor={editor} />
 
       <div className="flex justify-end mt-8">
+        <button
+          onClick={handleDelete}
+          className="px-6 py-3 text-red-500 font-bold hover:bg-red-50 rounded-full transition-colors flex items-center gap-2"
+        >
+          ลบบทความนี้
+        </button>
         <button
           onClick={handleSubmit}
           className="px-12 py-4 bg-green-600 text-white rounded-full font-bold shadow-lg hover:bg-green-700 transition-all hover:-translate-y-1"
