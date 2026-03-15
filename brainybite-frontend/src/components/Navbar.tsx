@@ -1,14 +1,51 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchCategories } from "../api/articleService";
+import { getCurrentUser, signOut } from "aws-amplify/auth";
+import { Hub } from "aws-amplify/utils";
 
 export default function Navbar() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<{ id: number; name: string }[]>(
     [],
   );
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check the status when the webpage loads for the first time.
+    checkUser();
+
+    // the Hub listen for login/logout events to automatically change the UI.
+    const unsubscribe = Hub.listen("auth", ({ payload }) => {
+      switch (payload.event) {
+        case "signedIn":
+          checkUser();
+          break;
+        case "signedOut":
+          setIsAuthenticated(false);
+          setUserEmail("");
+          break;
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const checkUser = async () => {
+    try {
+      const user = await getCurrentUser();
+      setIsAuthenticated(true);
+      // Cognito usually returns a username as an email address or a UUID (User Identity Card)
+      setUserEmail(user.username);
+    } catch (error) {
+      // If get an error, it means not logged in.
+      setIsAuthenticated(false);
+    }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +63,15 @@ export default function Navbar() {
     };
     loadCategories();
   }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
+  };
 
   return (
     // sticky top-0 z-50
@@ -79,19 +125,49 @@ export default function Navbar() {
           </form>
 
           {/* Login / Register */}
-          <div className="flex items-center space-x-4">
-            <Link
-              to="/login"
-              className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors"
-            >
-              เข้าสู่ระบบ
-            </Link>
-            <Link
-              to="/register"
-              className="px-5 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95"
-            >
-              สมัครสมาชิก
-            </Link>
+          <div className="flex items-center gap-4">
+            {isAuthenticated ? (
+              // Login mode
+              <>
+                <Link
+                  to="/write"
+                  className="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 font-semibold rounded-full hover:bg-blue-100 transition-colors"
+                >
+                  เขียนบทความ
+                </Link>
+                {/* My Articles button (for future use on a profile page) */}
+                <Link
+                  to="/my-articles"
+                  className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors"
+                >
+                  บทความของฉัน
+                </Link>
+                <div className="w-[1px] h-6 bg-slate-300 mx-1"></div>{" "}
+                {/* Line */}
+                <button
+                  onClick={handleSignOut}
+                  className="px-5 py-2 text-sm font-bold text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                >
+                  ออกจากระบบ
+                </button>
+              </>
+            ) : (
+              // Normal mode (not logged in)
+              <>
+                <Link
+                  to="/login"
+                  className="px-5 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors"
+                >
+                  เข้าสู่ระบบ
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-5 py-2 bg-blue-600 text-white text-sm font-bold rounded-full hover:bg-blue-700 hover:shadow-md transition-all"
+                >
+                  สมัครสมาชิก
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
