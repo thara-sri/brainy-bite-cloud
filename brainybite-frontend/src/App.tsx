@@ -4,6 +4,7 @@ import ArticleDetail from "./pages/ArticleDetail";
 import Navbar from "./components/Navbar"; // Import Navbar
 import WriteArticle from "./pages/WriteArticle";
 import EditArticle from "./pages/EditArticle";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -15,14 +16,7 @@ function App() {
           <Route path="/article/:slug" element={<ArticleDetail />} />
           <Route path="/write" element={<WriteArticle />} />
           <Route path="/edit/:slug" element={<EditArticle />} />
-          <Route
-            path="/login"
-            element={
-              <div className="p-8 text-center text-xl">
-                หน้า Login กำลังสร้าง...{" "}
-              </div>
-            }
-          />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/register"
             element={
