@@ -37,3 +37,8 @@ export const fetchArticleBySlug = async (slug: string) => {
   const response = await api.get<ArticleResponse>(`/articles/${slug}`);
   return response.data;
 };
+
+export const fetchCategories = async () => {
+  const response = await api.get("/categories");
+  return response.data;
+};

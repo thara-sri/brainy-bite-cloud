@@ -1,18 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import EditorToolbar from "../components/EditorToolbar";
 import Image from "@tiptap/extension-image";
 import api from "../api/axiosSetup";
 import { useNavigate } from "react-router-dom";
+import { fetchCategories } from "../api/articleService";
 
 export default function WriteArticle() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState(1);
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>(
+    [],
+  );
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await fetchCategories();
+        setCategories(data);
+        if (data.length > 0) setCategoryId(data[0].id);
+      } catch (error) {
+        console.error("Category retrieval failed:", error);
+      }
+    };
+    loadCategories();
+  }, []);
 
   const editor = useEditor({
     extensions: [
@@ -162,8 +179,11 @@ export default function WriteArticle() {
             onChange={(e) => setCategoryId(Number(e.target.value))}
             className="rounded-lg border-slate-200 text-sm text-slate-600"
           >
-            <option value={1}>Spring Boot</option>
-            <option value={2}>React</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
           </select>
         </div>
 

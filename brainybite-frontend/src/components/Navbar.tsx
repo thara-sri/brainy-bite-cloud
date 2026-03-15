@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { fetchCategories } from "../api/articleService";
 
 export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>(
+    [],
+  );
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     navigate(`/?search=${searchTerm}&category=${category}`);
   };
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await fetchCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error("Category retrieval failed:", error);
+      }
+    };
+    loadCategories();
+  }, []);
 
   return (
     // sticky top-0 z-50
@@ -40,9 +56,11 @@ export default function Navbar() {
                 className="bg-transparent text-sm font-medium text-slate-600 focus:outline-none pr-2 py-1 border-r border-slate-300 cursor-pointer"
               >
                 <option value="">ทุกหมวดหมู่</option>
-                <option value="1">Spring Boot</option>
-                <option value="2">React</option>
-                <option value="3">Database</option>
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
 
               {/* keyword */}
