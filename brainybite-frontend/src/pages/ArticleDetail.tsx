@@ -35,12 +35,18 @@ function ArticleDetail() {
   return (
     <div className="p-8">
       <div className="max-w-3xl mx-auto">
-        <Link
-          to="/"
-          className="text-blue-500 hover:underline mb-6 inline-block"
-        >
-          &larr; กลับหน้าหลัก
-        </Link>
+        <div className="flex justify-between items-center mb-6">
+          <Link to="/" className="text-blue-500 hover:underline">
+            &larr; กลับหน้าหลัก
+          </Link>
+          <Link
+            to={`/edit/${article.slug}`}
+            className="text-red-600 hover:underline"
+          >
+            แก้ไขบทความ
+          </Link>
+        </div>
+
         <h1 className="text-4xl font-extrabold text-slate-900 mb-4">
           {article.topic}
         </h1>

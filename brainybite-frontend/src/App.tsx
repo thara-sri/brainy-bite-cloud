@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import ArticleDetail from "./pages/ArticleDetail";
 import Navbar from "./components/Navbar"; // Import Navbar
 import WriteArticle from "./pages/WriteArticle";
+import EditArticle from "./pages/EditArticle";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/article/:slug" element={<ArticleDetail />} />
           <Route path="/write" element={<WriteArticle />} />
+          <Route path="/edit/:slug" element={<EditArticle />} />
           <Route
             path="/login"
             element={

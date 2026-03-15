@@ -23,7 +23,8 @@ public class SecurityConfig {
                         // For No Token
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/articles/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/upload", "/api/articles").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/upload", "/api/articles").permitAll() //For Develpping
+                        .requestMatchers(HttpMethod.PUT, "/api/articles/**").permitAll() //For Developpiing
 
                         .anyRequest().authenticated()
                 )

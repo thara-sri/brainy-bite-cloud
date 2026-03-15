@@ -2,6 +2,7 @@ import api from "./axiosSetup";
 
 // Create an interface to handle the data sent from Spring Boot. (Pageable)
 export interface ArticleResponse {
+  categoryId: number;
   id: number;
   topic: string;
   slug: string;
