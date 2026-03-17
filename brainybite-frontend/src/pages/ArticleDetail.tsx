@@ -4,11 +4,26 @@ import {
   fetchArticleBySlug,
   type ArticleResponse,
 } from "../api/articleService";
+import { getCurrentUser } from "aws-amplify/auth";
 
 function ArticleDetail() {
   const { slug } = useParams(); // extract slug from URL (ex. /article/my-first-blog)
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [article, setArticle] = useState<ArticleResponse | null>(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await getCurrentUser();
+        setCurrentUserId(user.userId);
+      } catch (error) {
+        setCurrentUserId(null);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const loadArticle = async () => {
@@ -39,12 +54,14 @@ function ArticleDetail() {
           <Link to="/" className="text-blue-500 hover:underline">
             &larr; กลับหน้าหลัก
           </Link>
-          <Link
-            to={`/edit/${article.slug}`}
-            className="text-red-600 hover:underline"
-          >
-            แก้ไขบทความ
-          </Link>
+          {article && currentUserId === article.authorId && (
+            <Link
+              to={`/edit/${article.slug}`}
+              className="text-red-600 hover:underline"
+            >
+              แก้ไขบทความ
+            </Link>
+          )}
         </div>
 
         <h1 className="text-4xl font-extrabold text-slate-900 mb-4">

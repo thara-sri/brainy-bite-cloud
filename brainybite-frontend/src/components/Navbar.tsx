@@ -7,7 +7,6 @@ import { Hub } from "aws-amplify/utils";
 export default function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<{ id: number; name: string }[]>(
@@ -144,6 +143,9 @@ export default function Navbar() {
                 </Link>
                 <div className="w-[1px] h-6 bg-slate-300 mx-1"></div>{" "}
                 {/* Line */}
+                <a className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
+                  {userEmail}
+                </a>
                 <button
                   onClick={handleSignOut}
                   className="px-5 py-2 text-sm font-bold text-red-500 hover:bg-red-50 rounded-full transition-colors"
