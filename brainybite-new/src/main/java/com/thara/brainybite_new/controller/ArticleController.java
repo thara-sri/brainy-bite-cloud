@@ -42,8 +42,8 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<ArticleResponse> createArticle(@RequestBody ArticleRequest request, @AuthenticationPrincipal Jwt jwt) {
-            //String authorId = jwt.getSubject();
-            String authorId = "mock-author-uuid-1234";
+            String authorId = jwt.getSubject();
+            //String authorId = "mock-author-uuid-1234";
             ArticleResponse createdArticle = articleService.createArticle(request, authorId);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdArticle);
     }

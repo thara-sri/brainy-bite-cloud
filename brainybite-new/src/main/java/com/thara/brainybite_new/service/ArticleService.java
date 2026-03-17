@@ -64,7 +64,6 @@ public class ArticleService {
                 .content(request.getContent())
                 .thumbnailUrl(request.getThumbnailUrl())
                 .category(category)
-                //Hard Code for test
                 .authorId(authorId) //Use authorId from Token
                 .status(request.getStatus() != null ? request.getStatus() : ArticleStatus.DRAFT)
                 .build();
