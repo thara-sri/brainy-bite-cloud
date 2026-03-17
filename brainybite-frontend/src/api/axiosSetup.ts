@@ -2,7 +2,7 @@ import axios from "axios";
 import { fetchAuthSession } from "aws-amplify/auth";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api", // Spring Boot
+  baseURL: import.meta.env.VITE_API_URL, // Spring Boot
   headers: {
     "Content-Type": "application/json",
   },
