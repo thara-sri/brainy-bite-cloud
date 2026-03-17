@@ -111,13 +111,17 @@ export default function Navbar() {
               {/* keyword */}
               <input
                 type="text"
+                value={searchTerm}
                 placeholder="ค้นหาบทความ..."
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="flex-1 bg-transparent px-4 py-1 text-sm text-slate-700 focus:outline-none placeholder-slate-400"
               />
 
               {/* buttom */}
-              <button className="text-slate-400 hover:text-blue-600 transition-colors px-2">
+              <button
+                className="text-slate-400 hover:text-blue-600 transition-colors px-2"
+                type="submit"
+              >
                 🔍
               </button>
             </div>
