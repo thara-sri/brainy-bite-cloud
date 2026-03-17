@@ -11,7 +11,7 @@
 	<groupId>com.thara</groupId>
 	<artifactId>brainybite-new</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>brainybite-new</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
