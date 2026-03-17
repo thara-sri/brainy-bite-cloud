@@ -20,17 +20,21 @@ export interface PageableResponse<T> {
 
 export const fetchArticles = async (
   page = 0,
-  size = 10,
+  size = 12,
   search = "",
-  p0: number | undefined,
+  category = "",
 ) => {
-  const response = await api.get<PageableResponse<ArticleResponse>>(
-    "/articles",
-    {
-      params: { page, size, search },
-    },
-  );
-  return response.data;
+  // Query Parameters
+  const params = new URLSearchParams({
+    page: page.toString(),
+    size: size.toString(), // Use 9 because when displayed in a 3-column grid, it fits perfectly.
+  });
+
+  if (search) params.append("search", search);
+  if (category) params.append("category", category);
+
+  const response = await api.get(`/articles?${params.toString()}`);
+  return response.data; // The data will be a PageImpl block from Spring Boot.
 };
 
 // get Article by slug
