@@ -2,6 +2,7 @@ import api from "./axiosSetup";
 
 // Create an interface to handle the data sent from Spring Boot. (Pageable)
 export interface ArticleResponse {
+  authorId: string | null;
   categoryId: number;
   id: number;
   topic: string;
@@ -40,5 +41,10 @@ export const fetchArticleBySlug = async (slug: string) => {
 
 export const fetchCategories = async () => {
   const response = await api.get("/categories");
+  return response.data;
+};
+
+export const fetchMyArticles = async () => {
+  const response = await api.get("/articles/me");
   return response.data;
 };

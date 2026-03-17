@@ -6,6 +6,7 @@ import WriteArticle from "./pages/WriteArticle";
 import EditArticle from "./pages/EditArticle";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import MyArticles from "./pages/MyArticle";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/article/:slug" element={<ArticleDetail />} />
           <Route path="/write" element={<WriteArticle />} />
           <Route path="/edit/:slug" element={<EditArticle />} />
+          <Route path="/my-articles" element={<MyArticles />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
