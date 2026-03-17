@@ -54,13 +54,15 @@ public class ArticleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id, @RequestBody ArticleRequest request) {
-        return ResponseEntity.ok(articleService.updateArticle(id, request));
+    public ResponseEntity<ArticleResponse> updateArticle(@PathVariable Long id, @RequestBody ArticleRequest request, @AuthenticationPrincipal Jwt jwt) {
+        String currentUserId = jwt.getSubject();
+        return ResponseEntity.ok(articleService.updateArticle(id, request, currentUserId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
-        articleService.deleteArticle(id);
+    public ResponseEntity<Void> deleteArticle(@PathVariable Long id, @AuthenticationPrincipal Jwt jwt) {
+        String currentUserId = jwt.getSubject();
+        articleService.deleteArticle(id, currentUserId);
         return ResponseEntity.noContent().build(); // return 204 No Content
     }
 }

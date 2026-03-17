@@ -13,7 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +45,9 @@ public class ArticleService {
     public Page<ArticleResponse> getMyArticles(String authorId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
-        Page<Article> articlePage = articleRepository.findByAuthorId(authorId, pageable);
+        Page<Article> articlePage = articleRepository.findByAuthorIdAndStatus(authorId, ArticleStatus.PUBLISHED, pageable);
+
+        //Page<Article> articlePage = articleRepository.findByAuthorId(authorId, pageable);
 
         return articlePage.map(this::mapToResponse);
     }
@@ -80,9 +85,13 @@ public class ArticleService {
         return mapToResponse(article);
     }
 
-    public ArticleResponse updateArticle(Long id, ArticleRequest request) {
+    public ArticleResponse updateArticle(Long id, ArticleRequest request, String currentUserId) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Article not found with ID: " + id));
+
+        if (!article.getAuthorId().equals(currentUserId)) {
+            throw new AccessDeniedException("You do not have the right to edit other people's articles.!");
+        }
 
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found with ID: " + request.getCategoryId()));
@@ -102,9 +111,14 @@ public class ArticleService {
     }
 
     //Soft Deleting
-    public void deleteArticle(Long id) {
+    public void deleteArticle(Long id, String currentUserId) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Article not found with ID: " + id));
+
+        if (!article.getAuthorId().equals(currentUserId)) {
+            throw new AccessDeniedException("You do not have the right to delete articles that are not yours!");
+            // Spring Boot 403 Forbidden
+        }
 
         article.setStatus(ArticleStatus.ARCHIVED);
         articleRepository.save(article);

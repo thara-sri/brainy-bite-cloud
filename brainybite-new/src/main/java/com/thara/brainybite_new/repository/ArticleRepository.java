@@ -18,6 +18,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findByAuthorId(String authorId, Pageable pageable);
     Page<Article> findByStatus(ArticleStatus status, Pageable pageable);
     Page<Article> findByTopicContainingIgnoreCaseAndStatus(String topic, ArticleStatus status, Pageable pageable);
+    Page<Article> findByAuthorIdAndStatus(String authorId, ArticleStatus status, Pageable pageable);
     @Query("SELECT a FROM Article a WHERE " +
             "(:categoryId IS NULL OR a.category.id = :categoryId) AND " +
             "(:keyword = '' OR LOWER(a.topic) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(a.description) LIKE LOWER(CONCAT('%', :keyword, '%')))")
