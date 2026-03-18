@@ -89,3 +89,10 @@ To run this project locally, follow these steps:
     npm run dev
     ```
 *Developed with herat as a demonstration of Full-Stack & Cloud Architecture capabilities.*
+
+## Screenshot
+<img width="1920" height="1080" alt="Screenshot (387)" src="https://github.com/user-attachments/assets/8af4c87e-0ef7-426b-a997-ee8c6f58b6db" />
+<img width="1920" height="1080" alt="Screenshot (388)" src="https://github.com/user-attachments/assets/01d68210-df54-4cc5-8edb-2f66585f875d" />
+<img width="1920" height="1080" alt="Screenshot (389)" src="https://github.com/user-attachments/assets/e285ff0f-0713-46db-960b-f6d734add4d9" />
+<img width="1920" height="1080" alt="Screenshot (391)" src="https://github.com/user-attachments/assets/52faa80b-2f83-43a8-887e-d953fe32df88" />
+<img width="1920" height="1080" alt="Screenshot (392)" src="https://github.com/user-attachments/assets/c5ab76e5-0961-47be-be87-251a91a35e20" />
