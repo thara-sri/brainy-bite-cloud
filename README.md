@@ -21,6 +21,8 @@ The initial version was designed for enterprise scale, fully leveraging AWS nati
 * **High Availability:** Traffic routing managed by an `Application Load Balancer (ALB)`.
 * **Database:** `Amazon RDS (PostgreSQL)` configured with `Multi-AZ` deployment for failover capabilities.
 * **Storage & Auth:** `Amazon S3` for media storage and `Amazon Cognito` for identity management.
+<img width="805" height="781" alt="Untitled Diagram drawio" src="https://github.com/user-attachments/assets/77348464-a8f5-4d6b-97ca-93def8d9b750" />
+
 
 ### Current Architecture (Cost-Optimized Portfolio Version)
 To sustainably host this project as a personal portfolio, the architecture was redesigned adopting a **Best-of-Breed** cloud strategy. This approach maintains high performance while strictly adhering to free-tier limits, significantly reducing operational costs (eliminating expensive RDS and EC2 instances):
