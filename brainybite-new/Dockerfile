@@ -4,8 +4,8 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jre-alpine
+FROM amazoncorretto:17-alpine
 WORKDIR /app
-COPY --from=build /app/target/*.jar ./
+COPY --from=build /app/target/*.jar ./app.jar 
 EXPOSE 8080
-ENTRYPOINT ["sh", "-c", "java -jar *.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
