@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths:
       - "brainybite-new/**"
+      - .github/workflows/**
 
 jobs:
   deploy:
@@ -22,7 +23,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::108782062712:role/github-actions-ecr-role
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: ap-southeast-7
 
       - name: Login to Amazon ECR
         id: login-ecr
