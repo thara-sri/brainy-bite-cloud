@@ -1,5 +1,5 @@
 # BrainyBite - Full-Stack Article Management Platform
-[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Website-success?style=for-the-badge&logo=vercel)](https://brainy-bite-cloud.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Website-success?style=for-the-badge&logo=vercel)](https://brainy-bite.thara-sritharadol.com)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)]()
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)]()
 [![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)]()
