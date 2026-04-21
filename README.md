@@ -13,26 +13,26 @@
 
 ## Architecture & Cloud Deployment Strategy
 
-This project is an evolution of a university laboratory assignment, re-architected to demonstrate proficiency in cloud-native design, resource management, and cost optimization:
+This project has evolved through multiple iterations to demonstrate advanced proficiency in **Cloud-Native Design, Infrastructure Automation, and Cost Optimization**:
 
-### Original Architecture (University Lab Environment)
-The initial version was designed for enterprise scale, fully leveraging AWS native services (supported by student credits):
-* **Compute:** `Amazon EC2` instances provisioned separately for frontend and backend services.
-* **High Availability:** Traffic routing managed by an `Application Load Balancer (ALB)`.
-* **Database:** `Amazon RDS (PostgreSQL)` configured with `Multi-AZ` deployment for failover capabilities.
-* **Storage & Auth:** `Amazon S3` for media storage and `Amazon Cognito` for identity management.
-<img width="805" height="781" alt="Untitled Diagram drawio" src="https://github.com/user-attachments/assets/77348464-a8f5-4d6b-97ca-93def8d9b750" />
+### Current Architecture: Production-Grade & Cost-Optimized
+The current infrastructure is designed to emulate enterprise standards while maintaining near-zero operating costs. It utilizes a combination of AWS automated services, containerization, and edge networks:
 
+1. **Frontend (Edge Network):** Hosted on **Vercel** for global CDN delivery, rapid CI/CD, and optimal frontend performance.
+2. **Compute (Auto-Healing & Cost Efficient):** * Deployed on **AWS EC2 Spot Instances** (ARM64/t4g) for up to 90% cost savings.
+   * Managed by an **Auto Scaling Group (ASG)** across multiple Availability Zones (AZs) to ensure High Availability (HA) and automatic instance replacement.
+3. **Containerization & Orchestration:** * Backend services are containerized using **Docker**.
+   * Images are securely stored in **Amazon ECR** with automated Lifecycle Policies to manage storage costs.
+   * **Nginx** acts as a Reverse Proxy on the EC2 instance, utilizing Virtual Hosting (Server Blocks) to securely route traffic to multiple backend microservices.
+4. **Security & Secrets Management:**
+   * **AWS Systems Manager (SSM) Parameter Store** is used to inject sensitive environment variables dynamically at runtime via EC2 User Data scripts.
+   * CI/CD pipelines utilize **OpenID Connect (OIDC)** for keyless, secure authentication with AWS, eliminating the need for long-lived Access Keys.
+   * **Cloudflare** operates in `Full (Strict)` mode with Origin CA Certificates, providing edge-level DDoS protection and end-to-end encryption.
+5. **Database:** **Neon.tech** (ap-southeast-1) provides a highly responsive, serverless PostgreSQL solution.
 
-### Current Architecture (Cost-Optimized Portfolio Version)
-To sustainably host this project as a personal portfolio, the architecture was redesigned adopting a **Best-of-Breed** cloud strategy. This approach maintains high performance while strictly adhering to free-tier limits, significantly reducing operational costs (eliminating expensive RDS and EC2 instances):
-
-1. **Frontend (React):** Migrated to **Vercel** for its global edge network and seamless CI/CD pipeline.
-2. **Backend (Spring Boot):** Containerized using **Docker** and deployed as a web service on **Render.com**.
-3. **Database (PostgreSQL):** Transitioned to **Neon.tech** (ap-southeast-1 region) for a highly responsive, serverless database solution.
-4. **Authentication & Storage:** Retained **AWS Cognito** (User Pool) and **AWS S3** to ensure enterprise-grade security and identity management.
-
-*(This strategic shift optimized the monthly infrastructure cost from enterprise-level to $0, without compromising application functionality.)*
+### Previous Iterations
+* **Phase 1 (Enterprise/Lab Environment):** Utilized ALB, Multi-AZ RDS, and dedicated EC2 instances (Optimized for scale, high cost).
+* **Phase 2 (Serverless Portfolio):** Migrated backend to Render.com (Optimized for simplicity).
 
 ---
 
@@ -47,12 +47,13 @@ To sustainably host this project as a personal portfolio, the architecture was r
 * **Framework:** Spring Boot 3 (Java 17)
 * **Security:** Spring Security (OAuth2 Resource Server)
 * **ORM:** Spring Data JPA / Hibernate
-* **Database:** PostgreSQL
+* **Database:** PostgreSQL (Neon Serverless)
 
-### Cloud & DevOps
-* **AWS:** Cognito (Authentication) & S3 (Image Storage)
-* **Deployment:** Vercel (Frontend), Render (Backend), Neon (Database)
-* **Containerization:** Docker & Dockerfile (Multi-stage build)
+### Cloud & DevOps (The Core Engine)
+* **CI/CD:** GitHub Actions (with QEMU/Buildx for ARM64 cross-compilation & OIDC AWS integration)
+* **AWS Services:** EC2 (Spot), ASG, ECR, SSM Parameter Store, Cognito, S3, IAM.
+* **Networking:** Cloudflare (DNS Auto-update via bash scripts, SSL), Nginx (Reverse Proxy)
+* **Containerization:** Docker & Docker Compose
 
 ---
 
@@ -60,8 +61,8 @@ To sustainably host this project as a personal portfolio, the architecture was r
 * **Authentication:** Secure user registration and login utilizing AWS Cognito (JWT Bearer Token validation).
 * **Article Management:** Complete CRUD operations for articles (Create, Read, Update, Delete).
 * **Image Upload:** Direct integration with AWS S3 for uploading and managing article cover images.
-* **CORS Management:** Strictly configured Cross-Origin Resource Sharing bridging the Vercel edge network and Render backend.
-* **Environment Profiles:** Distinct configuration setups leveraging `application-dev.properties` (Local) and `application-prod.properties` (Cloud).
+* **Infrastructure as Code (IaC) Concept:** Automated server provisioning using robust bash scripts in EC2 Launch Templates (installing tools, pulling secrets, configuring Nginx, and running containers dynamically).
+* **Automated DNS Management:** EC2 instances automatically update Cloudflare A-Records with their new public IP upon spawning.
 
 ## Local Development Setup
 
