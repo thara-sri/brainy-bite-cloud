@@ -27,7 +27,7 @@ The current infrastructure is designed to emulate enterprise standards while mai
    * CI/CD pipelines utilize **OpenID Connect (OIDC)** for keyless, secure authentication with AWS, eliminating the need for long-lived Access Keys.
    * **Cloudflare** operates in `Full (Strict)` mode with Origin CA Certificates, providing edge-level DDoS protection and end-to-end encryption.
 5. **Database:** **Neon.tech** (ap-southeast-1) provides a highly responsive, serverless PostgreSQL solution.
-<img width="1001" height="659" alt="brainy-cloud drawio" src="https://github.com/user-attachments/assets/b8f07ddf-8c49-481f-a5dc-213a5f7a7dca" />
+<img width="1001" height="681" alt="brainy-cloud drawio(1)" src="https://github.com/user-attachments/assets/3f9aedb6-6767-4ed7-ab89-03e3d81d5b45" />
 *Architecture Diagram.*
 
 ### Previous Iterations
