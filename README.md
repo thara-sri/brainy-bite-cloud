@@ -1,5 +1,4 @@
 # BrainyBite - Full-Stack Article Management Platform
-[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Website-success?style=for-the-badge&logo=vercel)](https://brainy-bite.thara-sritharadol.com)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)]()
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)]()
 [![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)]()
@@ -7,7 +6,6 @@
 
 **BrainyBite** is a comprehensive content management system developed with a decoupled architecture, separating the React frontend from the Spring Boot backend. It features secure user authentication via AWS Cognito and efficient image asset management using AWS S3.
 
-**Live Website:** [https://brainy-bite-cloud.vercel.app](https://brainy-bite-cloud.vercel.app)
 
 ---
 
@@ -29,6 +27,8 @@ The current infrastructure is designed to emulate enterprise standards while mai
    * CI/CD pipelines utilize **OpenID Connect (OIDC)** for keyless, secure authentication with AWS, eliminating the need for long-lived Access Keys.
    * **Cloudflare** operates in `Full (Strict)` mode with Origin CA Certificates, providing edge-level DDoS protection and end-to-end encryption.
 5. **Database:** **Neon.tech** (ap-southeast-1) provides a highly responsive, serverless PostgreSQL solution.
+<img width="1001" height="659" alt="brainy-cloud drawio" src="https://github.com/user-attachments/assets/b8f07ddf-8c49-481f-a5dc-213a5f7a7dca" />
+*Architecture Diagram.*
 
 ### Previous Iterations
 * **Phase 1 (Enterprise/Lab Environment):** Utilized ALB, Multi-AZ RDS, and dedicated EC2 instances (Optimized for scale, high cost).
