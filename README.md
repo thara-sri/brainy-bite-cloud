@@ -27,7 +27,9 @@ The current infrastructure is designed to emulate enterprise standards while mai
    * CI/CD pipelines utilize **OpenID Connect (OIDC)** for keyless, secure authentication with AWS, eliminating the need for long-lived Access Keys.
    * **Cloudflare** operates in `Full (Strict)` mode with Origin CA Certificates, providing edge-level DDoS protection and end-to-end encryption.
 5. **Database:** **Neon.tech** (ap-southeast-1) provides a highly responsive, serverless PostgreSQL solution.
-<img width="1001" height="681" alt="brainy-cloud drawio(1)" src="https://github.com/user-attachments/assets/3f9aedb6-6767-4ed7-ab89-03e3d81d5b45" />
+
+<img width="1001" height="681" alt="brainy-cloud drawio(1)" src="https://github.com/user-attachments/assets/56fcd3d5-3640-4fcb-a2c9-1180b6d36fc1" />
+
 *Architecture Diagram.*
 
 ### Previous Iterations
@@ -94,8 +96,10 @@ To run this project locally, follow these steps:
 *Developed with herat as a demonstration of Full-Stack & Cloud Architecture capabilities.*
 
 ## Screenshot
-<img width="1920" height="1080" alt="Screenshot (387)" src="https://github.com/user-attachments/assets/8af4c87e-0ef7-426b-a997-ee8c6f58b6db" />
-<img width="1920" height="1080" alt="Screenshot (388)" src="https://github.com/user-attachments/assets/01d68210-df54-4cc5-8edb-2f66585f875d" />
-<img width="1920" height="1080" alt="Screenshot (389)" src="https://github.com/user-attachments/assets/e285ff0f-0713-46db-960b-f6d734add4d9" />
-<img width="1920" height="1080" alt="Screenshot (391)" src="https://github.com/user-attachments/assets/52faa80b-2f83-43a8-887e-d953fe32df88" />
-<img width="1920" height="1080" alt="Screenshot (392)" src="https://github.com/user-attachments/assets/c5ab76e5-0961-47be-be87-251a91a35e20" />
+<img width="1920" height="1080" alt="Screenshot (387)" src="https://github.com/user-attachments/assets/6d6d1d42-bb5b-472a-9c32-e45ddf769958" />
+<img width="1920" height="1080" alt="Screenshot (388)" src="https://github.com/user-attachments/assets/d98037da-826e-4124-b2ae-9041d3735e72" />
+<img width="1920" height="1080" alt="Screenshot (389)" src="https://github.com/user-attachments/assets/a329cbfd-37c4-44b0-86a5-c259f94cb169" />
+<img width="1920" height="1080" alt="Screenshot (391)" src="https://github.com/user-attachments/assets/8f09c7c5-b508-4dbe-8b4e-4e9cc6a65ad9" />
+<img width="1920" height="1080" alt="Screenshot (392)" src="https://github.com/user-attachments/assets/83f36727-1c54-41be-9616-707a8bd66c2b" />
+
+
