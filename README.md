@@ -36,6 +36,10 @@ The current infrastructure is designed to emulate enterprise standards while mai
 * **Phase 1 (Enterprise/Lab Environment):** Utilized ALB, Multi-AZ RDS, and dedicated EC2 instances (Optimized for scale, high cost).
 * **Phase 2 (Serverless Portfolio):** Migrated backend to Render.com (Optimized for simplicity).
 
+<img width="805" height="781" alt="Untitled Diagram drawio" src="https://github.com/user-attachments/assets/2a2123cc-2ee0-4b2c-90d6-1f2a5a704589" />
+
+*Previous Architecture Diagram.*
+
 ---
 
 ## Tech Stack
